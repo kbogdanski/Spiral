@@ -5,12 +5,12 @@ class Spiral
     /**
      * @var int
      */
-    private $row;
+    private $rowArray;
 
     /**
      * @var int
      */
-    private $col;
+    private $colArray;
 
     /**
      * @var int
@@ -25,7 +25,12 @@ class Spiral
     /**
      * @var int
      */
-    private $value;
+    private $row;
+
+    /**
+     * @var int
+     */
+    private $col;
 
     /**
      * @var array
@@ -39,50 +44,63 @@ class Spiral
      */
     public function __construct($row, $col)
     {
-        $this->row = $this->sizeRow = $row;
-        $this->col = $this->sizeCol = $col;
+        $this->rowArray = $this->sizeRow = $row;
+        $this->colArray = $this->sizeCol = $col;
+        $this->row = $this->col = 0;
         $this->matrix = [];
         $this->value = 1;
     }
 
-    public function createMatrix() {
-        if ($this->sizeRow < 1 || $this->sizeCol < 1)
-        {
+    public function createMatrix()
+    {
+        if ($this->sizeRow === 1 && $this->sizeCol === 1) {
+            $this->matrix[$this->row][$this->col] = $this->value;
             return;
         }
 
-        $row = (int)(($this->row - $this->sizeRow)/2);
-        $col = (int)(($this->col - $this->sizeCol)/2);
-        if ($this->sizeRow === 1 && $this->sizeCol === 1)
-        {
-            $this->matrix[$row][$col] = $this->value;
+        if ($this->sizeRow < 1 || $this->sizeCol < 1) {
             return;
         }
 
         //Right
-        for($i=0; $i<$this->sizeCol-1; ++$i)
-        {
-            $this->matrix[$row][$col++] = $this->value++;
+        for ($i=0; $i<$this->sizeCol-1; $i++) {
+            $this->matrix[$this->row][$this->col] = $this->value++;
+            $this->col++;
         }
 
         //Down
-        for($i=0; $i<$this->sizeRow-1; ++$i)
-        {
-            $this->matrix[$row++][$col] = $this->value++;
+        for ($i=0; $i<$this->sizeRow-1; $i++) {
+            $this->matrix[$this->row][$this->col] = $this->value++;
+            $this->row++;
+        }
+
+        //Check size row
+        if($this->sizeRow === 1) {
+            $this->matrix[$this->row][$this->col++] = $this->value++;
+            return;
         }
 
         //Left
-        for($i=0; $i<$this->sizeCol-1; ++$i)
-        {
-            $this->matrix[$row][$col--] = $this->value++;
+        for ($i=0; $i<$this->sizeCol-1; $i++) {
+            $this->matrix[$this->row][$this->col] = $this->value++;
+            $this->col--;
+        }
+
+        //Check size col
+        if($this->sizeCol === 1) {
+            $this->matrix[$this->row++][$this->col] = $this->value++;
+            return;
         }
 
         //Up
-        for($i=0; $i<$this->sizeRow-1; ++$i)
-        {
-            $this->matrix[$row--][$col] = $this->value++;
+        for ($i=0; $i<$this->sizeRow-1; $i++) {
+            $this->matrix[$this->row][$this->col] = $this->value++;
+            $this->row--;
         }
 
+        //Set start index end size array
+        $this->row++;
+        $this->col++;
         $this->sizeRow = $this->sizeRow - 2;
         $this->sizeCol = $this->sizeCol - 2;
         $this->createMatrix();
