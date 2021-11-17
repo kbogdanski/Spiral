@@ -62,7 +62,7 @@ class NewSpiral
     public function readMatrixAsSpiral()
     {
         if ($this->sizeRow === 1 && $this->sizeCol === 1) {
-            echo $this->matrix[$this->row][$this->col] . ", ";
+            $this->printMatrixValue($this->row, $this->col);
             return;
         }
 
@@ -72,37 +72,37 @@ class NewSpiral
 
         //Right
         for ($i=0; $i<$this->sizeCol-1; $i++) {
-            echo $this->matrix[$this->row][$this->col] . ", ";
+            $this->printMatrixValue($this->row, $this->col);
             $this->col++;
         }
 
         //Down
         for ($i=0; $i<$this->sizeRow-1; $i++) {
-            echo $this->matrix[$this->row][$this->col] . ", ";
+            $this->printMatrixValue($this->row, $this->col);
             $this->row++;
         }
 
         //Check size row
         if($this->sizeRow === 1) {
-            echo $this->matrix[$this->row][$this->col++] . ", ";
+            $this->printMatrixValue($this->row, $this->col++);
             return;
         }
 
         //Left
         for ($i=0; $i<$this->sizeCol-1; $i++) {
-            echo $this->matrix[$this->row][$this->col] . ", ";
+            $this->printMatrixValue($this->row, $this->col);
             $this->col--;
         }
 
         //Check size col
         if($this->sizeCol === 1) {
-            echo $this->matrix[$this->row++][$this->col] . ", ";
+            $this->printMatrixValue($this->row++, $this->col);
             return;
         }
 
         //Up
         for ($i=0; $i<$this->sizeRow-1; $i++) {
-            echo $this->matrix[$this->row][$this->col] . ", ";
+            $this->printMatrixValue($this->row, $this->col);
             $this->row--;
         }
 
@@ -123,6 +123,12 @@ class NewSpiral
             }
             echo "\n";
         }
+    }
+
+
+    private function printMatrixValue($row, $col)
+    {
+        echo $this->matrix[$row][$col] . ', ';
     }
 
 }
