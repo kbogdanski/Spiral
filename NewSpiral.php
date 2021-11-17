@@ -35,7 +35,7 @@ class NewSpiral
     /**
      * @var array
      */
-    public $matrix;
+    private $matrix;
 
     /**
      * Spiral constructor.
